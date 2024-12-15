@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 import pymysql
 
 app = Flask(__name__)
-conn = pymysql.connect(host = 'localhost', user = 'root', password = 'gjt051219@', database = 'forum', charset = 'utf8', cursorclass = pymysql.cursors.DictCursor)
+conn = pymysql.connect(host = 'localhost', user = 'root', password = '[censored]', database = 'forum', charset = 'utf8', cursorclass = pymysql.cursors.DictCursor)
 cur = conn.cursor()
 
 @app.route('/', methods=['get'])
