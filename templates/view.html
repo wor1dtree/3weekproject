@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>{{result[0]['title']}}</title>
+  </head>
+    <body>
+        <b>{{result[0]['title']}}</b>
+        <br>
+        작성자 : {{result[0]['user']}}
+        <br>
+        <b1>{{result[0]['content']}}</b1>
+        <form action = "/delete" method = "get">
+          <input type="text" name="password" value placeholder="비밀번호">
+          <input type="hidden" name="id" value="{{result[0]['id']}}">
+          <button>삭제</button>
+        </form>
+        <form action="/edit" method = "get">
+          <input type="hidden" name="id" value="{{result[0]['id']}}">
+          <button>수정</button>
+        </form>
+    </body>
+</html>

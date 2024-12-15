@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>수정</title>
+  </head>
+    <body>
+      <form action = "/edit", method = "post">
+        <input type="hidden" name="id" value="{{result[0]['id']}}">
+        <input type="text" name="user" required placeholder="이름" value="{{result[0]['user']}}"><br>
+        <input type="text" name="password" required placeholder="비밀번호"><br>
+        <input type="text" name="title" required placeholder="제목" value="{{result[0]['title']}}"><br>
+        <textarea id="content" name="content" rows="8" required placeholder="내용" >{{result[0]['content']}}</textarea>
+        <button>제출</button>
+      </form>
+    </body>
+</html>

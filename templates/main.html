@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>빡공팟 3주차</title>
+  </head>
+    <body>
+      <form action = "/search">
+        <input type = "text" name = "search" value placeholder = "검색">
+        <select name="mod">
+          <option value="all">전체검색</option>
+          <option value="title">제목검색</option>
+          <option value="content">내용검색</option>
+        </select>
+        <button>검색</button>
+      </form>
+      <form action = "/write" method = "get">
+        <button>글쓰기</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in results %}
+          <tr>
+              <td>{{result['id'] }}</td>
+              <td><a href = "/view?id={{result['id']}}">{{result['title'] }}</td>
+              <td>{{result['user'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </body>
+</html>
