@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>수정</title>
+  </head>
+    <body>
+      <b>{{result[0]['user']}}</b>
+      <form action = "/editprofile", method = "post", enctype="multipart/form-data">
+        <label for="file">변경할 프로필:</label>
+        <input type="file" id="file" name="file"><br>
+        <input type="text" name="school" required placeholder="변경할 학교" value="{{result[0]['school']}}"><br>
+        <input type="text" name="name" required placeholder="변경할 이름" value="{{result[0]['name']}}"><br>
+        <button>제출</button>
+      </form>
+    </body>
+</html>

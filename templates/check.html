@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>비밀글입니다</title>
+  </head>
+    <body>
+      <form action = "/view", method = "post">
+        비밀글입니다<br>
+        <input type="text" name="password" required placeholder="비밀번호"><br>
+        <input type="hidden" name="id" value="{{id}}">
+        <button>제출</button>
+      </form>
+    </body>
+</html>

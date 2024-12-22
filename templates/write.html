@@ -5,11 +5,14 @@
     <title>글쓰기</title>
   </head>
     <body>
-      <form action = "/write", method = "post">
-        <input type="text" name="user" required placeholder="이름"><br>
-        <input type="text" name="password" required placeholder="비밀번호"><br>
+      <form action = "/write", method = "post" enctype="multipart/form-data">
+        <b>작성자 : {{user}}</b><br>
         <input type="text" name="title" required placeholder="제목"><br>
-        <textarea id="content" name="content" rows="8" required placeholder="내용"></textarea>
+        <textarea id="content" name="content" rows="8" required placeholder="내용"></textarea><br>
+        <input type="checkbox" id="secret" name="secret" value="y">
+        <label for="secret">비밀글</label><br>
+        <label for="file">파일:</label>
+        <input type="file" id="file" name="file"><br>
         <button>제출</button>
       </form>
     </body>

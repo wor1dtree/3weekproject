@@ -2,7 +2,13 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8">
-    <title>빡공팟 3주차</title>
+    <title>빡공팟 웹 만들기</title>
+    <style>
+      form {
+          display: inline-block;
+          margin-right: 10px;
+      }
+    </style>
   </head>
     <body>
       <form action = "/search">
@@ -13,10 +19,8 @@
           <option value="content">내용검색</option>
         </select>
         <button>검색</button>
-      </form>
-      <form action = "/write" method = "get">
-        <button>글쓰기</button>
-      </form>
+      </form><br>
+      {{login | safe}}
       <table>
         <thead>
           <tr>
@@ -30,7 +34,7 @@
           <tr>
               <td>{{result['id'] }}</td>
               <td><a href = "/view?id={{result['id']}}">{{result['title'] }}</td>
-              <td>{{result['user'] }}</td>
+              <td><a href = "/profile?user={{result['user']}}">{{result['user'] }}</td>
           </tr>
           {% endfor %}
         </tbody>

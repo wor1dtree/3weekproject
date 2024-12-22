@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>로그인</title>
+  </head>
+    <body>
+      <form action = "/login", method = "post">
+        <input type="text" name="user" required placeholder="유저이름"><br>
+        <input type="text" name="password" required placeholder="비밀번호"><br>
+        <button>로그인</button>
+      </form>
+      <form action = "/regist">
+        <button>회원가입</button>
+      </form>
+      <form action = "/searchidpd">
+        <button>id 또는 비밀번호 찾기</button>
+      </form>
+      <p>{{error}}</p>
+    </body>
+</html>

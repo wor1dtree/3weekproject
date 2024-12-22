@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>회원가입</title>
+  </head>
+    <body>
+        <form action = "/regist" method = "post">
+            <input type="text" name="user" value placeholder="사용하실 id를 입력하세요"><br>
+            <input type="text" name="password" value placeholder="사용하실 비밀번호를 입력하세요"><br>
+            <input type="text" name="password2" value placeholder="사용하실 2차 비밀번호를 입력하세요"><br>
+            <input type="text" name="school" value placeholder=" 다니시는 학교를 입력하세요"><br>
+            <input type="text" name="name" value placeholder="이름을 입력하세요">
+            <button>회원가입</button>
+        </form>
+        <p>{{error}}<p>
+    </body>
+</html>

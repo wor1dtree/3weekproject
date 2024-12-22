@@ -9,7 +9,8 @@
         <br>
         작성자 : {{result[0]['user']}}
         <br>
-        <b1>{{result[0]['content']}}</b1>
+        <p>{{result[0]['content']}}</p>
+        {{file | safe}}
         <form action = "/delete" method = "get">
           <input type="text" name="password" value placeholder="비밀번호">
           <input type="hidden" name="id" value="{{result[0]['id']}}">

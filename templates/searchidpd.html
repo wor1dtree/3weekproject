@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>id, 비밀번호 찾기</title>
+  </head>
+    <body>
+        <b>id 찾기</b>
+        <form action="/searchidpd" method = "post">
+            <input type="text" name="name" value placeholder="사용하신 이름을을 입력하세요">
+            <button>제출</button>
+        </form>
+        <b>pd 찾기</b>
+        <form action="/searchidpd" method = "post">
+            <input type="text" name="user" value placeholder="사용하신 id를 입력하세요">
+            <input type="text" name="password2" value placeholder="사용하신 2차 비밀번호를 입력하세요요">
+            <button>제출</button>
+        </form>
+        <p>{{result}}</p>
+        <form action="/login" method = "get">
+            <button>로그인</button>
+        <form>
+    </body>
+</html>
