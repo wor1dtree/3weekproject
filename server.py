@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, make_response, send_from_directory
+from flask import Flask, render_template, request, redirect, make_response, send_from_directory #여러가지 필요한 추가 모듈을 설치하였다.
 import pymysql
 import random
 import string
@@ -7,14 +7,14 @@ import os
 app = Flask(__name__)
 conn = pymysql.connect(host = 'localhost', user = 'root', password = '[censored]', database = 'forum', charset = 'utf8', cursorclass = pymysql.cursors.DictCursor)
 cur = conn.cursor()
-characters = string.ascii_letters + string.digits
+characters = string.ascii_letters + string.digits #파일 이름을 랜덤문자열로 지을 때 사용할 모음음
 
 @app.route('/', methods=['get'])
 def main():
     query = "SELECT * FROM board"
     cur.execute(query)
     results = cur.fetchall()[::-1]
-    user = request.cookies.get('user')
+    user = request.cookies.get('user')  #쿠키를 추가하였고 이에 따라 /페이지가 동적으로 작동하도록 하였다.
     if user:
         login = f"""
       <form action = "/write" method = "get">
@@ -42,15 +42,15 @@ def view1():
     query = "SELECT * FROM board WHERE id = " + str(id) + ";"
     cur.execute(query)
     result = cur.fetchall()
-    file = ""
-    if(result[0]['secret'] == 'y'):
+    file = ""                                     
+    if(result[0]['secret'] == 'y'):  #비밀글 기능을 추가하였다.
         return render_template('check.html', id = id)
     else:
-        if(result[0]['file'] != ""):
+        if(result[0]['file'] != ""): #파일이 있고 없는 경우를 구분하고 그에 따라 파일 다운로드가 보이고 안 보이게 설계하였다.
             file = "<a href=/download/" + str(result[0]['file']) + ">파일 다운로드</a><br>"
         return render_template('view.html', result = result, file = file)
 
-@app.route('/view', methods = ['post'])
+@app.route('/view', methods = ['post'])   
 def view2():
     id = request.form['id']
     password = request.form['password']
@@ -70,7 +70,7 @@ def view2():
 
 @app.route('/write', methods = ['get'])
 def write1():
-    user = request.cookies.get('user')
+    user = request.cookies.get('user') #쿠키 기능을 추가하였고 이제는 로그인 하지 않으면 글을 쓸 수 없게 하였다.
     if user:
         return render_template('write.html', user = user)
     else:
@@ -81,10 +81,10 @@ def write2():
     user = request.cookies.get('user')
     title = request.form['title']
     content = request.form['content']
-    file = request.files['file']
+    file = request.files['file']         #파일 첨부기능을 추가 하였다.
     route = ""
     if(file.filename != ''):
-        route = ''.join(random.choices(characters, k=10)) + os.path.splitext(file.filename)[1]
+        route = ''.join(random.choices(characters, k=10)) + os.path.splitext(file.filename)[1] #파일 이름이 랜덤한 글자열이면 사실상 충돌이 일어나기 힘들다는 점을 이용해 랜덤이름을 생성하였다.
         file.save("uploadfile/" + str(route))
     if(request.form.get('secret') == None):
         secret = 'n'
@@ -158,7 +158,7 @@ def edit2():
     else:
         return redirect('/edit?id='+str(id))
     
-@app.route('/login', methods = ['get'])
+@app.route('/login', methods = ['get'])  #로그인 기능을 추가하였다.
 def login1():
     return render_template('login.html')
 
@@ -166,7 +166,7 @@ def login1():
 def login2():
     user = request.form['user']
     password = request.form['password']
-    try:
+    try:                               #try문을 활용해 out of index오류를 해결하였다.
         query = "SELECT * FROM userinformation WHERE user = '" + str(user) + "';"
         cur.execute(query)
         result = cur.fetchall()
@@ -183,7 +183,7 @@ def login2():
 def regist1():
     return render_template('regist.html')
 
-@app.route('/regist', methods = ['post'])
+@app.route('/regist', methods = ['post'])  #회원가입 기능을 추가하였다.
 def regist2():
     user = request.form['user']
     password = request.form['password']
@@ -201,17 +201,17 @@ def regist2():
     else:
         return render_template('regist.html', error = "이미 있는 id 입니다.")
 
-@app.route('/logout')
+@app.route('/logout')   #로그아웃 기능
 def logout():
     resp = make_response(redirect('/'))
     resp.delete_cookie('user')
     return resp
 
-@app.route('/download/<filename>')
+@app.route('/download/<filename>') #업로드된 파일을 다운로드하는 기능
 def download_file(filename):
     return send_from_directory('uploadfile', filename, as_attachment=True)
 
-@app.route('/searchidpd', methods = ['get'])
+@app.route('/searchidpd', methods = ['get']) #id, pd찾기 기능능
 def searchidpd1():
     return render_template('searchidpd.html')
 
@@ -221,7 +221,7 @@ def searchidpd2():
     user = request.form.get('user')
     password2 = request.form.get('password2')
     result = ""
-    if(name != None):
+    if(name != None): #if문을 통해 최대한 모든 예외를 처리하였다.
         query = "SELECT * from userinformation WHERE name = '" + str(name) + "';"
         cur.execute(query)
         result = cur.fetchall()
@@ -243,8 +243,8 @@ def searchidpd2():
     else:
         return render_template('searchidpd.html', result = "값을 입력해주세요")
 
-@app.route('/profile')
-def profile():
+@app.route('/profile') #개인 프로필 페이지를 구현하였다.
+def profile(): 
     user = request.args.get('user')
     usercookie = request.cookies.get('user')
     if (user == usercookie):   
@@ -260,7 +260,7 @@ def profile():
             filename = "basic.jpg"
             return render_template('profile.html', result = result, filename = filename)
 
-@app.route('/myprofile')
+@app.route('/myprofile') #쿠키값과 파라미터가 같다면 해당 페이지에서 값을 수정 할 수 있게 하였다.
 def myprofile():
     user = request.cookies.get('user')
     query = "SELECT * from userinformation WHERE user = '" + str(user) + "';"
@@ -298,7 +298,6 @@ def editprofile2():
         cur.execute(query)
         conn.commit()
     return redirect('/myprofile')
-
 
 if __name__ == '__main__':
     app.run(debug="true")
